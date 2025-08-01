@@ -1,6 +1,12 @@
-import React from "react";
+import type { Location, Department, Function } from "../types/types";
 
-const Header = () => {
+interface HeaderProps {
+  departments: Department[];
+  functions: Function[];
+  locations: Location[];
+}
+
+const Header = ({ departments, functions, locations }: HeaderProps) => {
   return (
     <section className="flex items-center">
       <div className="mx-auto w-full">
@@ -59,33 +65,24 @@ const Header = () => {
                       d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
                     />
                   </svg>
-                  Department
+                  Functions
                 </button>
                 <div
                   id="functionDropdown"
                   className="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
                 >
                   <ul
-                    className="py-1 text-sm text-gray-700 dark:text-gray-200"
-                    aria-labelledby="functionDropdownButton"
+                    className="py-1 text-sm text-gray-700 dark:text-gray-200 max-h-60 overflow-y-auto"
+                    aria-labelledby="functionsDropdownButton"
                   >
-                    <li>
-                      <a
-                        href="#"
-                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                      >
-                        Mass Edit
-                      </a>
-                    </li>
+                    {functions.map((jobFunction) => (
+                      <li key={jobFunction.id}>
+                        <button className="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                          {jobFunction.title}
+                        </button>
+                      </li>
+                    ))}
                   </ul>
-                  <div className="py-1">
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                    >
-                      Delete all
-                    </a>
-                  </div>
                 </div>
 
                 {/* department */}
@@ -115,26 +112,17 @@ const Header = () => {
                   className="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
                 >
                   <ul
-                    className="py-1 text-sm text-gray-700 dark:text-gray-200"
-                    aria-labelledby="departmentDropdownButton"
+                    className="py-1 text-sm text-gray-700 dark:text-gray-200 max-h-60 overflow-y-auto"
+                    aria-labelledby="departmentsDropdownButton"
                   >
-                    <li>
-                      <a
-                        href="#"
-                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                      >
-                        Mass Edit
-                      </a>
-                    </li>
+                    {departments.map((department) => (
+                      <li key={department.id}>
+                        <button className="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                          {department.title}
+                        </button>
+                      </li>
+                    ))}
                   </ul>
-                  <div className="py-1">
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                    >
-                      Delete all
-                    </a>
-                  </div>
                 </div>
 
                 {/* location */}
@@ -157,33 +145,24 @@ const Header = () => {
                       d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
                     />
                   </svg>
-                  Department
+                  Location
                 </button>
                 <div
                   id="locationsDropdown"
                   className="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
                 >
                   <ul
-                    className="py-1 text-sm text-gray-700 dark:text-gray-200"
+                    className="py-1 text-sm text-gray-700 dark:text-gray-200 max-h-60 overflow-y-auto"
                     aria-labelledby="locationsDropdownButton"
                   >
-                    <li>
-                      <a
-                        href="#"
-                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                      >
-                        Mass Edit
-                      </a>
-                    </li>
+                    {locations.map((location) => (
+                      <li key={location.id}>
+                        <button className="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                          {location.title} — {location.city}
+                        </button>
+                      </li>
+                    ))}
                   </ul>
-                  <div className="py-1">
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                    >
-                      Delete all
-                    </a>
-                  </div>
                 </div>
               </div>
             </div>
