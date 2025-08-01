@@ -33,3 +33,14 @@ export const fetchLocations = async () => {
     return null;
   }
 };
+
+export const fetchJobs = async () => {
+  try {
+    const res = await fetch(`${BASE_URL}/jobs`);
+    if (!res.ok) throw new Error("Failed to fetch jobs");
+    return res.json();
+  } catch (error) {
+    console.error("Jobs API Error:", error);
+    return null;
+  }
+};

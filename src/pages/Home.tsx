@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { fetchDepartments, fetchFunctions, fetchLocations } from "../utils/api";
 import Header from "../components/Header";
+import Joblist from "../components/Joblist";
 
 const Home = () => {
   const [departments, setDepartments] = useState([]);
@@ -31,6 +32,7 @@ const Home = () => {
       {/* search and filter component */}
       <Header departments={departments} functions={functions} locations={locations} />
       {/* main content */}
+      <Joblist />
     </div>
   );
 };
