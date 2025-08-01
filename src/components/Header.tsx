@@ -1,4 +1,5 @@
 import type { Location, Department, Function } from "../types/types";
+import DropdownMenu from "./DropdownMenu";
 
 interface HeaderProps {
   departments: Department[];
@@ -46,124 +47,22 @@ const Header = ({ departments, functions, locations }: HeaderProps) => {
             <div className="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center md:space-x-3">
               <div className="flex items-center w-full space-x-3 md:w-auto">
                 {/* function  */}
-                <button
-                  id="functionDropdownButton"
-                  data-dropdown-toggle="functionDropdown"
-                  className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                  type="button"
-                >
-                  <svg
-                    className="-ml-1 mr-1.5 w-5 h-5"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                  >
-                    <path
-                      clipRule="evenodd"
-                      fillRule="evenodd"
-                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                    />
-                  </svg>
-                  Functions
-                </button>
-                <div
-                  id="functionDropdown"
-                  className="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
-                >
-                  <ul
-                    className="py-1 text-sm text-gray-700 dark:text-gray-200 max-h-60 overflow-y-auto"
-                    aria-labelledby="functionsDropdownButton"
-                  >
-                    {functions.map((jobFunction) => (
-                      <li key={jobFunction.id}>
-                        <button className="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                          {jobFunction.title}
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                <DropdownMenu
+                  data={functions}
+                  dropdownText="Function"
+                />
 
                 {/* department */}
-                <button
-                  id="departmentDropdownButton"
-                  data-dropdown-toggle="departmentDropdown"
-                  className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                  type="button"
-                >
-                  <svg
-                    className="-ml-1 mr-1.5 w-5 h-5"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                  >
-                    <path
-                      clipRule="evenodd"
-                      fillRule="evenodd"
-                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                    />
-                  </svg>
-                  Department
-                </button>
-                <div
-                  id="departmentDropdown"
-                  className="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
-                >
-                  <ul
-                    className="py-1 text-sm text-gray-700 dark:text-gray-200 max-h-60 overflow-y-auto"
-                    aria-labelledby="departmentsDropdownButton"
-                  >
-                    {departments.map((department) => (
-                      <li key={department.id}>
-                        <button className="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                          {department.title}
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                <DropdownMenu
+                  data={departments}
+                  dropdownText="Department"
+                />  
 
                 {/* location */}
-                <button
-                  id="locationsDropdownButton"
-                  data-dropdown-toggle="locationsDropdown"
-                  className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                  type="button"
-                >
-                  <svg
-                    className="-ml-1 mr-1.5 w-5 h-5"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                  >
-                    <path
-                      clipRule="evenodd"
-                      fillRule="evenodd"
-                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                    />
-                  </svg>
-                  Location
-                </button>
-                <div
-                  id="locationsDropdown"
-                  className="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
-                >
-                  <ul
-                    className="py-1 text-sm text-gray-700 dark:text-gray-200 max-h-60 overflow-y-auto"
-                    aria-labelledby="locationsDropdownButton"
-                  >
-                    {locations.map((location) => (
-                      <li key={location.id}>
-                        <button className="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                          {location.title} — {location.city}
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                <DropdownMenu
+                  data={locations}
+                  dropdownText="Location"
+                />
               </div>
             </div>
           </div>
