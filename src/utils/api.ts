@@ -44,3 +44,16 @@ export const fetchJobs = async () => {
     return null;
   }
 };
+
+export const fetchJobDetails = async (jobId: number) => {
+  try {
+    const res = await fetch(`${BASE_URL}/jobs/${jobId}`);
+    if (!res.ok) throw new Error("Failed to fetch job details");
+    const jobDetails = await res.json();
+    console.log("Job Details API Response:", jobDetails);
+    return jobDetails;
+  } catch (error) {
+    console.error("Job Details API Error:", error);
+    return null;
+  }
+}
