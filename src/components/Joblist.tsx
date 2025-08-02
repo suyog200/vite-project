@@ -25,9 +25,10 @@ const Joblist = ({ jobs }: JoblistProps) => {
     <div className="p-6 space-y-8">
       {Object.entries(groupedJobs).map(([dept, deptJobs]) => (
         <div key={dept}>
-          <h2 className="text-2xl font-bold text-gray-700 pb-2 mb-4 border-b-4 border-blue-300 w-[60px]">
+          <h2 className="text-2xl font-bold text-gray-700 pb-1">
             {dept}
           </h2>
+          <div className="border-b-4 border-blue-300 w-16"></div>
 
           <div className="space-y-5">
             {deptJobs.map((job) => (

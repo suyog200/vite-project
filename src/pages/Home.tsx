@@ -14,6 +14,7 @@ import type {
   Location,
   Filters,
 } from "../types/types";
+import Badges from "../components/Badges";
 
 const Home = () => {
   const [jobs, setJobs] = useState<Job[]>([]);
@@ -64,8 +65,7 @@ const Home = () => {
 
       const matchesSearch =
     !searchTerm ||
-    job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    job.description.toLowerCase().includes(searchTerm.toLowerCase());
+    job.title.toLowerCase().includes(searchTerm.toLowerCase());
 
     return matchesFunction && matchesDepartment && matchesLocation && matchesSearch;
   });
@@ -87,34 +87,12 @@ const Home = () => {
         searchTerm={searchTerm}
         onSearchChange= {(value) => setSearchTerm(value)}
       />
-      <div className="flex flex-wrap items-center gap-2 mt-4">
-        {Object.entries(filters).map(([key, value]) =>
-          value ? (
-            <span
-              key={key}
-              className="flex items-center gap-1 bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm"
-            >
-              {key}: {value}
-              <button
-                onClick={() => handleFilterChange(key, "")}
-                className="ml-2 text-gray-500 hover:text-red-500"
-              >
-                ✕
-              </button>
-            </span>
-          ) : null
-        )}
-
-        {Object.values(filters).some((val) => val !== null) && (
-          <button
-            onClick={clearAllFilters}
-            className="ml-4 text-sm text-purple-600 hover:underline"
-          >
-            Clear All
-          </button>
-        )}
-      </div>
-
+      {/* badges for active filters */}
+      <Badges
+        filters={filters}
+        handleFilterChange={handleFilterChange}
+        clearAllFilters={clearAllFilters}
+      />
       {/* main content */}
       <Joblist jobs={filteredJobs} />
     </div>

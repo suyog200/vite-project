@@ -65,22 +65,22 @@ const Header = ({
           {/* Dropdowns Row */}
           <div className="flex flex-col gap-3 md:flex-row md:items-center md:gap-4 justify-evenly">
             <DropdownMenu
-              data={functions}
-              dropdownText="Function"
-              selected={filters.function}
-              onSelect={(value) => onFilterChange("function", value)}
-            />
-            <DropdownMenu
               data={departments}
               dropdownText="Department"
               selected={filters.department}
               onSelect={(value) => onFilterChange("department", value)}
             />
+              <DropdownMenu
+                data={locations}
+                dropdownText="Location"
+                selected={filters.location}
+                onSelect={(value) => onFilterChange("location", value)}
+              />
             <DropdownMenu
-              data={locations}
-              dropdownText="Location"
-              selected={filters.location}
-              onSelect={(value) => onFilterChange("location", value)}
+              data={functions}
+              dropdownText="Function"
+              selected={filters.function}
+              onSelect={(value) => onFilterChange("function", value)}
             />
           </div>
         </div>
