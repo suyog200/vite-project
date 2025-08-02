@@ -7,6 +7,13 @@ interface JoblistProps {
 }
 const Joblist = ({ jobs }: JoblistProps) => {
 
+  if (!jobs || jobs.length === 0) {
+    return (
+      <div className="p-6">
+        <h2 className="text-2xl font-bold text-gray-700">No Jobs Available or change filters</h2>
+      </div>
+    );
+  }
     const groupedJobs = jobs.reduce((acc: { [key: string]: Job[] }, job) => {
     const dept = job.department?.title || "Uncategorized";
     if (!acc[dept]) acc[dept] = [];

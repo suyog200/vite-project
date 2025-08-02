@@ -8,6 +8,8 @@ interface HeaderProps {
   locations: Location[];
   filters: Filters;
   onFilterChange: (key: string, value: string) => void;
+  searchTerm: string;
+  onSearchChange: (value: string) => void;
 }
 
 const Header = ({
@@ -16,6 +18,8 @@ const Header = ({
   locations,
   filters,
   onFilterChange,
+  searchTerm,
+  onSearchChange,
 }: HeaderProps) => {
   return (
     <section className="flex items-center">
@@ -50,6 +54,8 @@ const Header = ({
               <input
                 type="text"
                 id="simple-search"
+                value={searchTerm}
+                onChange={(e) => onSearchChange(e.target.value)}
                 className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500"
                 placeholder="Search"
               />

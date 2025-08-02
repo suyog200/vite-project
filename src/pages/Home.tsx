@@ -20,6 +20,7 @@ const Home = () => {
   const [departments, setDepartments] = useState<Department[]>([]);
   const [functions, setFunctions] = useState<Function[]>([]);
   const [locations, setLocations] = useState<Location[]>([]);
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const [filters, setFilters] = useState<Filters>(() => {
     const stored = localStorage.getItem("filters");
     return stored
@@ -60,7 +61,13 @@ const Home = () => {
     const matchesFunction = !filters.function || job.function?.title === filters.function;
     const matchesDepartment = !filters.department || job.department?.title === filters.department;
     const matchesLocation = !filters.location || job.location?.title === filters.location;
-    return matchesFunction && matchesDepartment && matchesLocation;
+
+      const matchesSearch =
+    !searchTerm ||
+    job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    job.description.toLowerCase().includes(searchTerm.toLowerCase());
+
+    return matchesFunction && matchesDepartment && matchesLocation && matchesSearch;
   });
 
   return (
@@ -77,6 +84,8 @@ const Home = () => {
         locations={locations}
         filters={filters}
         onFilterChange={handleFilterChange}
+        searchTerm={searchTerm}
+        onSearchChange= {(value) => setSearchTerm(value)}
       />
       <div className="flex flex-wrap items-center gap-2 mt-4">
         {Object.entries(filters).map(([key, value]) =>
