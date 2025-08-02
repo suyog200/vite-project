@@ -5,9 +5,8 @@ import { fetchJobDetails, fetchJobs } from "../utils/api";
 import { Building2 } from "lucide-react";
 import { MapPinHouse } from "lucide-react";
 import { Link } from "react-router-dom";
-import facebookLogo from "../assets/facebook.png";
-import twitterLogo from "../assets/twitter.png";
-import linkedinLogo from "../assets/linkedin.png";
+import SocialMedia from "../components/socialMedia";
+import SimilarJobs from "../components/SimilarJobs";
 
 const currentUrl = window.location.href; //getting the current URL for sharing
 
@@ -99,95 +98,9 @@ const JobDetails = () => {
         {/* Right side: Similar jobs + Social media */}
         <div className="lg:w-1/3 w-full flex flex-col gap-6">
           {/* Similar jobs */}
-          <div className="bg-[#f6f8fb] p-5 rounded-lg shadow-sm">
-            <div className="mt-8">
-              <h2 className="text-gray-800 font-bold">Other Job Openings</h2>
-              <div className="border-b-4 border-blue-300 w-16"></div>
-              <div className="space-y-4 mt-2.5">
-                {similarJobs.length > 0 ? (
-                  similarJobs.map((item) => (
-                    <Link to={`/jobDetails/${item.id}`} key={item.id}>
-                      <div>
-                        <h3 className="font-bold text-lg">{item.title}</h3>
-                        <div className="flex flex-wrap gap-1 text-sm text-gray-700 mb-4">
-                          <span className="px-2 py-1">
-                            <Building2 className="inline w-4 h-4 mr-1" />
-                            {item.department?.title}
-                          </span>
-                          <span className="px-2 py-1">
-                            <MapPinHouse className="inline w-4 h-4 mr-1" />
-                            {item.location.title}, {item.location.state}
-                          </span>
-                        </div>
-                      </div>
-                    </Link>
-                  ))
-                ) : (
-                  <p className="text-sm text-gray-500">
-                    No similar jobs found in this department.
-                  </p>
-                )}
-              </div>
-            </div>
-          </div>
-
+          <SimilarJobs similarJobs={similarJobs} />
           {/* Social icons */}
-          <div className="bg-[#f6f8fb] p-5 rounded-lg shadow-sm">
-            <h3 className="text-gray-800 font-bold">SHARE JOB OPENINGS</h3>
-            <div className="border-b-4 border-blue-300 w-16"></div>
-            <div className="flex gap-4 mt-4">
-              <span
-                onClick={() =>
-                  window.open(
-                    `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-                      currentUrl
-                    )}`,
-                    "_blank"
-                  )
-                }
-              >
-                <img
-                  src={facebookLogo}
-                  alt="Facebook"
-                  className="inline w-6 h-6 mr-2 cursor-pointer"
-                />
-              </span>
-
-              <span
-                onClick={() =>
-                  window.open(
-                    `https://twitter.com/intent/tweet?url=${encodeURIComponent(
-                      currentUrl
-                    )}&text=${encodeURIComponent(job.title)}`,
-                    "_blank"
-                  )
-                }
-              >
-                <img
-                  src={twitterLogo}
-                  alt="Twitter"
-                  className="inline w-6 h-6 mr-2 cursor-pointer"
-                />
-              </span>
-
-              <span
-                onClick={() =>
-                  window.open(
-                    `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
-                      currentUrl
-                    )}`,
-                    "_blank"
-                  )
-                }
-              >
-                <img
-                  src={linkedinLogo}
-                  alt="LinkedIn"
-                  className="inline w-6 h-6 mr-2 cursor-pointer"
-                />
-              </span>
-            </div>
-          </div>
+          <SocialMedia currentUrl={currentUrl} job={job} />
         </div>
       </div>
     </div>
