@@ -9,7 +9,7 @@ import facebookLogo from "../assets/facebook.png";
 import twitterLogo from "../assets/twitter.png";
 import linkedinLogo from "../assets/linkedin.png";
 
-const currentUrl = window.location.href;
+const currentUrl = window.location.href; //getting the current URL for sharing
 
 const JobDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -51,6 +51,7 @@ const JobDetails = () => {
 
   return (
     <div className="mx-auto px-4 py-8">
+      <div className="flex flex-col lg:flex-row gap-8 w-full">
       <div className="w-full">
         <p className="text-m text-gray-600 mb-2">
           {job.department?.title} Department at Teknorix System Goa
@@ -76,6 +77,13 @@ const JobDetails = () => {
           </a>
         </button>
       </div>
+      <div>
+        <button className="text-black py-2 px-4 border rounded-3xl cursor-pointer hover:bg-gray-200">
+          <Link to="/">Back</Link>
+        </button>
+      </div>
+      </div>
+      {/* ----------------------------------------------------------------------------- */}
       <div className="border-t border-gray-400 mt-4"></div>
       <div className="flex flex-col lg:flex-row gap-8 w-full mt-10">
         {/* Left side: Job details */}
