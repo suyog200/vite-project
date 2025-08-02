@@ -39,7 +39,7 @@ const DropdownMenu = ({
     <div className="relative inline-block w-full md:w-auto" ref={dropdownRef}>
       <button
         onClick={() => setOpen((prev) => !prev)}
-        className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+        className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg md:w-auto focus:outline-none"
         type="button"
       >
         <svg
@@ -58,13 +58,13 @@ const DropdownMenu = ({
         {selected ? `${dropdownText}: ${selected}` : dropdownText}
       </button>
       {open && (
-        <div className="absolute z-10 mt-2 bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+        <div className="absolute z-10 mt-2 bg-white divide-y divide-gray-100 rounded shadow w-44">
           <ul className="py-1 text-sm text-gray-700 dark:text-gray-200 max-h-60 overflow-y-auto">
             {data.map((item) => (
               <li key={item.id}>
                 <button
                   onClick={() => handleSelect(item.title)}
-                  className="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                  className="block w-full text-left px-4 py-2 text-black hover:bg-gray-100 focus:outline-none"
                 >
                   {item.title}
                 </button>

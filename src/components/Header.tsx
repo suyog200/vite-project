@@ -25,7 +25,7 @@ const Header = ({
   return (
     <section className="flex items-center">
       <div className="mx-auto w-full">
-        <div className="relative sm:rounded-lg bg-header-bg shadow-md px-4 py-5 space-y-4">
+        <div className="relative sm:rounded-lg bg-header-bg px-4 py-5 space-y-4">
           {/* Search Bar */}
           <SearchBar searchTerm={searchTerm} onSearchChange={onSearchChange} />
 
