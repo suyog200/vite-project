@@ -1,4 +1,4 @@
-const BASE_URL = "https://demo.jobsoid.com/api/v1";
+const BASE_URL = "https://teknorix.jobsoid.com/api/v1";
 
 
 export const fetchDepartments = async () => {

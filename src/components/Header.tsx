@@ -1,19 +1,33 @@
 import type { Location, Department, Function } from "../types/types";
 import DropdownMenu from "./DropdownMenu";
+import type { Filters } from "../types/types";
 
 interface HeaderProps {
   departments: Department[];
   functions: Function[];
   locations: Location[];
+  filters: Filters;
+  onFilterChange: (key: string, value: string) => void;
 }
 
-const Header = ({ departments, functions, locations }: HeaderProps) => {
+const Header = ({
+  departments,
+  functions,
+  locations,
+  filters,
+  onFilterChange,
+}: HeaderProps) => {
   return (
     <section className="flex items-center">
       <div className="mx-auto w-full">
         <div className="relative sm:rounded-lg bg-header-bg shadow-md px-4 py-5 space-y-4">
           {/* Search Bar */}
-          <form className="w-full">
+          <form
+            className="w-full"
+            onSubmit={(e) => {
+              e.preventDefault();
+            }}
+          >
             <label htmlFor="simple-search" className="sr-only">
               Search
             </label>
@@ -44,9 +58,24 @@ const Header = ({ departments, functions, locations }: HeaderProps) => {
 
           {/* Dropdowns Row */}
           <div className="flex flex-col gap-3 md:flex-row md:items-center md:gap-4 justify-evenly">
-            <DropdownMenu data={functions} dropdownText="Function" />
-            <DropdownMenu data={departments} dropdownText="Department" />
-            <DropdownMenu data={locations} dropdownText="Location" />
+            <DropdownMenu
+              data={functions}
+              dropdownText="Function"
+              selected={filters.function}
+              onSelect={(value) => onFilterChange("function", value)}
+            />
+            <DropdownMenu
+              data={departments}
+              dropdownText="Department"
+              selected={filters.department}
+              onSelect={(value) => onFilterChange("department", value)}
+            />
+            <DropdownMenu
+              data={locations}
+              dropdownText="Location"
+              selected={filters.location}
+              onSelect={(value) => onFilterChange("location", value)}
+            />
           </div>
         </div>
       </div>

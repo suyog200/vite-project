@@ -1,26 +1,67 @@
 import { useState, useEffect } from "react";
-import { fetchDepartments, fetchFunctions, fetchLocations } from "../utils/api";
+import {
+  fetchDepartments,
+  fetchFunctions,
+  fetchLocations,
+  fetchJobs,
+} from "../utils/api";
 import Header from "../components/Header";
 import Joblist from "../components/Joblist";
+import type {
+  Job,
+  Department,
+  Function,
+  Location,
+  Filters,
+} from "../types/types";
 
 const Home = () => {
-  const [departments, setDepartments] = useState([]);
-  const [functions, setFunctions] = useState([]);
-  const [locations, setLocations] = useState([]);
+  const [jobs, setJobs] = useState<Job[]>([]);
+  const [departments, setDepartments] = useState<Department[]>([]);
+  const [functions, setFunctions] = useState<Function[]>([]);
+  const [locations, setLocations] = useState<Location[]>([]);
+  const [filters, setFilters] = useState<Filters>(() => {
+    const stored = localStorage.getItem("filters");
+    return stored
+      ? JSON.parse(stored)
+      : { function: "", department: "", location: "" };
+  });
 
   useEffect(() => {
-    const loadLookups = async () => {
-      const [deptData, funcData, locData] = await Promise.all([
-        fetchDepartments(),
-        fetchFunctions(),
-        fetchLocations(),
-      ]);
-      setDepartments(deptData || []);
-      setFunctions(funcData || []);
-      setLocations(locData || []);
+    const fetchAll = async () => {
+      const [jobsData, departmentsData, functionsData, locationsData] =
+        await Promise.all([
+          fetchJobs(),
+          fetchDepartments(),
+          fetchFunctions(),
+          fetchLocations(),
+        ]);
+      setJobs(jobsData || []);
+      setDepartments(departmentsData || []);
+      setFunctions(functionsData || []);
+      setLocations(locationsData || []);
     };
-    loadLookups();
+    fetchAll();
   }, []);
+
+  const handleFilterChange = (key: string, value: string) => {
+    const updated = { ...filters, [key]: value };
+    setFilters(updated);
+    localStorage.setItem("filters", JSON.stringify(updated));
+  };
+
+  const clearAllFilters = () => {
+    const cleared = { function: "", department: "", location: "" };
+    setFilters(cleared);
+    localStorage.setItem("filters", JSON.stringify(cleared));
+  };
+
+    const filteredJobs = jobs.filter((job) => {
+    const matchesFunction = !filters.function || job.function?.title === filters.function;
+    const matchesDepartment = !filters.department || job.department?.title === filters.department;
+    const matchesLocation = !filters.location || job.location?.title === filters.location;
+    return matchesFunction && matchesDepartment && matchesLocation;
+  });
 
   return (
     <div>
@@ -30,9 +71,43 @@ const Home = () => {
         </h1>
       </div>
       {/* search and filter component */}
-      <Header departments={departments} functions={functions} locations={locations} />
+      <Header
+        departments={departments}
+        functions={functions}
+        locations={locations}
+        filters={filters}
+        onFilterChange={handleFilterChange}
+      />
+      <div className="flex flex-wrap items-center gap-2 mt-4">
+        {Object.entries(filters).map(([key, value]) =>
+          value ? (
+            <span
+              key={key}
+              className="flex items-center gap-1 bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm"
+            >
+              {key}: {value}
+              <button
+                onClick={() => handleFilterChange(key, "")}
+                className="ml-2 text-gray-500 hover:text-red-500"
+              >
+                ✕
+              </button>
+            </span>
+          ) : null
+        )}
+
+        {Object.values(filters).some((val) => val !== null) && (
+          <button
+            onClick={clearAllFilters}
+            className="ml-4 text-sm text-purple-600 hover:underline"
+          >
+            Clear All
+          </button>
+        )}
+      </div>
+
       {/* main content */}
-      <Joblist />
+      <Joblist jobs={filteredJobs} />
     </div>
   );
 };

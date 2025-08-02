@@ -1,22 +1,13 @@
-import { useEffect, useState } from "react";
 import type { Job } from "../types/types";
-import { fetchJobs } from "../utils/api";
 import { Building2 } from "lucide-react";
 import { MapPinHouse } from 'lucide-react';
 
-const Joblist = () => {
-  const [jobs, setJobs] = useState<Job[]>([]);
+interface JoblistProps {
+  jobs: Job[];
+}
+const Joblist = ({ jobs }: JoblistProps) => {
 
-  useEffect(() => {
-    const loadJobs = async () => {
-      const data = await fetchJobs();
-      if (data) setJobs(data);
-    };
-    loadJobs();
-  }, []);
-
-  // to group jobs by department title
-  const groupedJobs = jobs.reduce((acc: { [key: string]: Job[] }, job) => {
+    const groupedJobs = jobs.reduce((acc: { [key: string]: Job[] }, job) => {
     const dept = job.department?.title || "Uncategorized";
     if (!acc[dept]) acc[dept] = [];
     acc[dept].push(job);

@@ -45,3 +45,9 @@ export interface Job {
   company: string;
   postedDate: string;
 }
+
+export interface Filters {
+  department: string | null;
+  function: string | null;
+  location: string | null;
+};
