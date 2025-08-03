@@ -1,20 +1,21 @@
 import type { Job } from "../types/types";
 import { Building2 } from "lucide-react";
-import { MapPinHouse } from 'lucide-react';
+import { MapPinHouse } from "lucide-react";
 
 interface JoblistProps {
   jobs: Job[];
 }
 const Joblist = ({ jobs }: JoblistProps) => {
-
   if (!jobs || jobs.length === 0) {
     return (
       <div className="p-6">
-        <h2 className="text-2xl font-bold text-gray-700">No Jobs Available or change filters</h2>
+        <h2 className="text-2xl font-bold text-gray-700">
+          No Jobs Available or change filters
+        </h2>
       </div>
     );
   }
-    const groupedJobs = jobs.reduce((acc: { [key: string]: Job[] }, job) => {
+  const groupedJobs = jobs.reduce((acc: { [key: string]: Job[] }, job) => {
     const dept = job.department?.title || "Uncategorized";
     if (!acc[dept]) acc[dept] = [];
     acc[dept].push(job);
@@ -25,16 +26,14 @@ const Joblist = ({ jobs }: JoblistProps) => {
     <div className="p-6 space-y-8">
       {Object.entries(groupedJobs).map(([dept, deptJobs]) => (
         <div key={dept}>
-          <h2 className="text-2xl font-bold text-gray-700 pb-1">
-            {dept}
-          </h2>
+          <h2 className="text-2xl font-bold text-gray-700 pb-1">{dept}</h2>
           <div className="border-b-4 border-blue-300 w-16"></div>
 
           <div className="space-y-5">
             {deptJobs.map((job) => (
               <div
                 key={job.id}
-                className="w-full bg-white px-6 py-4 flex justify-between items-center"
+                className="w-full bg-white px-6 py-4 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4"
               >
                 {/* Job Info */}
                 <div>
@@ -53,17 +52,17 @@ const Joblist = ({ jobs }: JoblistProps) => {
                 </div>
 
                 {/* Action Buttons */}
-                <div className="flex gap-3">
+                <div className="flex gap-3 sm:justify-end">
                   <a
                     href={job.applyUrl}
                     target="_blank"
-                    className=" text-blue-400 px-4 py-1.5 rounded-4xl text-sm border border-blue-400"
+                    className="text-blue-400 px-4 py-1.5 rounded-4xl text-sm border border-blue-400"
                   >
                     Apply
                   </a>
                   <a
                     href={`/jobDetails/${job.id}`}
-                    className="text-black px-4 py-1.5 "
+                    className="text-black px-4 py-1.5 text-sm border border-black rounded-4xl"
                   >
                     View
                   </a>
