@@ -1,39 +1,18 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import type { Job } from "../types/types";
-import { fetchJobDetails, fetchJobs } from "../utils/api";
+import { useJobs } from "../hooks/useJobs";
+import { useJobDetails } from "../hooks/useJobDetails";
 import { Building2 } from "lucide-react";
 import { MapPinHouse } from "lucide-react";
 import { Link } from "react-router-dom";
-import SocialMedia from "../components/socialMedia";
+import SocialMedia from "../components/SocialMedia";
 import SimilarJobs from "../components/SimilarJobs";
 
 const currentUrl = window.location.href; //getting the current URL for sharing
 
 const JobDetails = () => {
   const { id } = useParams<{ id: string }>();
-  const [loading, setLoading] = useState(true);
-  const [job, setJob] = useState<Job | null>(null);
-  const [allJobs, setAllJobs] = useState<Job[]>([]);
-
-  useEffect(() => {
-    const fetchAllJobs = async () => {
-      const jobs = await fetchJobs();
-      setAllJobs(jobs);
-    };
-    fetchAllJobs();
-  }, []);
-
-  useEffect(() => {
-    const getJobDetails = async () => {
-      setLoading(true);
-      const data = await fetchJobDetails(Number(id));
-      setJob(data);
-      setLoading(false);
-    };
-
-    getJobDetails();
-  }, [id]);
+  const { jobs: allJobs } = useJobs();
+  const { job, loading } = useJobDetails(id);
 
   const similarJobs = job
     ? allJobs.filter(
